@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,7 +28,7 @@ import com.example.starwarsapi.ui.StarWarsUIState
 fun PantallaListaStarships(
     modifier: Modifier = Modifier,
     starWarsUIState: StarWarsUIState,
-    onBotonMostrarPeliculasPulsado: () -> Unit
+    onBotonMostrarPeliculasPulsado: (Int) -> Unit
 ){
     when(starWarsUIState) {
         is StarWarsUIState.Cargando -> PantallaCargando(modifier = Modifier.fillMaxSize())
@@ -34,7 +36,7 @@ fun PantallaListaStarships(
         is StarWarsUIState.Exito -> PantallaExito(
             modifier = modifier.fillMaxWidth(),
             respuesta = starWarsUIState.respuesta,
-            onClick = { onBotonMostrarPeliculasPulsado() }
+            onBotonMostrarPeliculasPulsado = onBotonMostrarPeliculasPulsado
         )
     }
 }
@@ -44,7 +46,7 @@ fun PantallaCargando(
     modifier: Modifier = Modifier
 ){
     Image(
-        modifier = modifier.size(200.dp),
+        modifier = modifier.size(50.dp),
         painter = painterResource(R.drawable.cargando),
         contentDescription = stringResource(R.string.cargando)
     )
@@ -65,7 +67,7 @@ fun PantallaError(
 fun PantallaExito(
     modifier: Modifier = Modifier,
     respuesta: Respuesta,
-    onClick: () -> Unit
+    onBotonMostrarPeliculasPulsado: (Int) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
         items(respuesta.resultado) { starship ->
@@ -76,17 +78,20 @@ fun PantallaExito(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = starship.nombre
+                        text = stringResource(R.string.nombre_del_starship, starship.nombre)
                     )
                     Text(
-                        text = starship.longitud
+                        text = stringResource(R.string.longitud, starship.longitud)
+                    )
+                    Text(
+                        text = "Indice: ${respuesta.resultado.indexOf(starship)}"
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Button(
-                            onClick = onClick
+                            onClick = { onBotonMostrarPeliculasPulsado(respuesta.resultado.indexOf(starship)) }
                         ) {
                             Text(
                                 text = stringResource(R.string.mostrar_peliculas)
@@ -95,7 +100,6 @@ fun PantallaExito(
                     }
                 }
             }
-
         }
     }
 }

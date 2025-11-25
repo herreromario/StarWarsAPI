@@ -6,4 +6,6 @@
     <string name="pantalla_listar_starships">Pantalla Listar Starships</string>
     <string name="pantalla_listar_peliculas">Pantalla Listar Películas</string>
     <string name="atras">Atrás</string>
+    <string name="nombre_del_starship">Nombre del starship: %1$s</string>
+    <string name="longitud">Longitud: %1$s</string>
 </resources>

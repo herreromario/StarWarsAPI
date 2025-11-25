@@ -1,6 +1,7 @@
 package com.example.starwarsapi.ui.screens
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -16,9 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.starwarsapi.R
@@ -54,13 +58,23 @@ fun StarWarsApp(
 
         NavHost(
             navController = navController,
-            startDestination = Pantallas.PantallaListarStarships,
+            startDestination = Pantallas.PantallaListarStarships.name,
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(route = Pantallas.PantallaListarStarships.name){
                 PantallaListaStarships(
-                    onBotonMostrarPeliculasPulsado = { navController.navigate(Pantallas.PantallaListarPeliculas.name)},
-                    starWarsUIState = starWarsUIState
+                    onBotonMostrarPeliculasPulsado = { index ->
+                        navController.navigate(Pantallas.PantallaListarPeliculas.name + "/$index")
+                                                     },
+                    starWarsUIState = starWarsUIState,
+                )
+            }
+            composable(route = Pantallas.PantallaListarPeliculas.name){
+                PantallaListarPeliculas(
+                    starWarsUIState = starWarsUIState,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                 )
             }
         }

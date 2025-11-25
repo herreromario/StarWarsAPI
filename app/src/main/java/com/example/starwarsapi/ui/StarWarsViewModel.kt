@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.starwarsapi.conexion.API
 import com.example.starwarsapi.modelo.Respuesta
+import com.example.starwarsapi.modelo.Starship
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
@@ -40,3 +41,5 @@ class StarWarsViewModel : ViewModel() {
         }
     }
 }
+
+
