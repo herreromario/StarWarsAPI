@@ -15,12 +15,16 @@ import retrofit2.HttpException
 
 sealed interface StarWarsUIState {
     data class Exito(val respuesta: Respuesta): StarWarsUIState
+
     object Error : StarWarsUIState
     object Cargando : StarWarsUIState
 }
 
 class StarWarsViewModel : ViewModel() {
     var starWarsUIState: StarWarsUIState by mutableStateOf(StarWarsUIState.Cargando)
+        private set
+
+    var naveSeleccionada by mutableStateOf<Starship?>(null)
         private set
 
     init {
@@ -39,6 +43,10 @@ class StarWarsViewModel : ViewModel() {
                 StarWarsUIState.Error
             }
         }
+    }
+
+    fun seleccionarNave(starship: Starship){
+        naveSeleccionada = starship
     }
 }
 

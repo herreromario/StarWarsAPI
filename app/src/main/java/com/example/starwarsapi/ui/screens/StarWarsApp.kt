@@ -63,15 +63,15 @@ fun StarWarsApp(
         ) {
             composable(route = Pantallas.PantallaListarStarships.name){
                 PantallaListaStarships(
-                    onBotonMostrarPeliculasPulsado = { index ->
-                        navController.navigate(Pantallas.PantallaListarPeliculas.name + "/$index")
-                                                     },
+                    onBotonMostrarPeliculasPulsado = { starship ->
+                        starWarsViewModel.seleccionarNave(starship)
+                        navController.navigate(Pantallas.PantallaListarPeliculas.name) },
                     starWarsUIState = starWarsUIState,
                 )
             }
             composable(route = Pantallas.PantallaListarPeliculas.name){
                 PantallaListarPeliculas(
-                    starWarsUIState = starWarsUIState,
+                    starWarsViewModel = starWarsViewModel,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp),

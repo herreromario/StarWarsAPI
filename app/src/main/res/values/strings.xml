@@ -8,4 +8,6 @@
     <string name="atras">Atrás</string>
     <string name="nombre_del_starship">Nombre del starship: %1$s</string>
     <string name="longitud">Longitud: %1$s</string>
+    <string name="starships">Starships</string>
+    <string name="peliculas_de_la_nave">Peliculas de la nave %1$s</string>
 </resources>
